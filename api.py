@@ -13,3 +13,10 @@ class BMICalculatorRequest(BaseModel):
 @app.get("/healthz")
 def health_check():
     return {"status": "ok"}
+
+
+def _calculate_bmi(height: float, weight: float) -> float:
+    if height <= 0 or weight <= 0:
+        raise HTTPException(status_code=400, detail="Height and weight must be positive values.")
+    return weight / (height ** 2)
+
