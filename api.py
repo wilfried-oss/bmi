@@ -20,3 +20,8 @@ def _calculate_bmi(height: float, weight: float) -> float:
         raise HTTPException(status_code=400, detail="Height and weight must be positive values.")
     return weight / (height ** 2)
 
+
+
+def _input_validation(height: float, weight: float):
+    if height <= 0 or weight <= 0:
+        raise HTTPException(status_code=400, detail="Height and weight must be positive values.")
