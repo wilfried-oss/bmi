@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BMI calculator powered by FastAPI">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>BMI Calculator</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+    <div class="app">
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon">BMI</div>
+                <div class="brand-text">
+                    <h1>
+                        BMI Calculator
+                    </h1>
+                    <p>
+                        Check your body mass index
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="calculator-card" aria-labelledby="calculator-title">
+                <div class="card-header">
+                    <span class="eyebrow">
+                        HEALTH CHECK
+                    </span>
+                    <h2 id="calculator-title">
+                        Calculate your BMI
+                    </h2>
+                    <p>
+                        Enter your weight and height below.
+                    </p>
+                </div>
+
+                <form id="bmi-form" class="bmi-form">
+                    <div class="form-group">
+                        <label for="weight" class="form-label">
+                            Weight
+                        </label>
+
+                        <div class="input-wrapper">
+                            <input type="number" id="weight" name="weight" class="form-input" placeholder="58" min="0"
+                                step="0.1" required>
+
+                            <span class="input-unit">
+                                kg
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="height" class="form-label">
+                            Height
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="number" id="height" name="height" class="form-input" placeholder="1.89" min="0"
+                                step="0.01" required>
+                            <span class="input-unit">
+                                m
+                            </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="calculate-button" class="calculate-button">
+                        <span id="button-text">
+                            Calculate BMI
+                        </span>
+                        <span id="button-loader" class="button-loader" aria-hidden="true"></span>
+                    </button>
+
+                </form>
+
+                <div id="error-message" class="error-message" role="alert" hidden></div>
+            </section>
+
+            <section id="result-card" class="result-card" aria-labelledby="result-title" hidden>
+                <div class="result-header">
+                    <span class="eyebrow">
+                        YOUR RESULT
+                    </span>
+                    <h2 id="result-title">
+                        BMI Result
+                    </h2>
+                </div>
+
+
+                <div class="bmi-display">
+                    <span class="bmi-label">
+                        Your BMI
+                    </span>
+                    <strong id="bmi-value" class="bmi-value">
+                        --
+                    </strong>
+                </div>
+
+                <div class="advice-card">
+                    <div class="advice-icon" aria-hidden="true">
+                        💡
+                    </div>
+                    <div class="advice-content">
+                        <h3>
+                            Advice
+                        </h3>
+                        <p id="bmi-advice">
+                            --
+                        </p>
+                    </div>
+                </div>
+
+                <button type="button" id="reset-button" class="reset-button">
+                    Calculate again
+                </button>
+            </section>
+        </main>
+
+
+
+        <footer class="app-footer">
+            <p>
+                BMI Calculator
+            </p>
+            <span>
+                Powered by FastAPI
+            </span>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="static/js/app.js" defer></script>
+</body>
+
+</html>
