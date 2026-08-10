@@ -9,8 +9,16 @@ app = FastAPI()
 
 
 class BMICalculatorRequest(BaseModel):
-    weight: float = Field(gt=0, le=500, description="Weight in kilograms (must be greater than 0 and less than or equal to 500)")
-    height: float = Field(gt=0, le=3, description="Height in meters (must be greater than 0 and less than or equal to 3)")
+    weight: float = Field(
+        gt=0,
+        le=500,
+        description="Weight in kilograms (must be greater than 0 and less than or equal to 500)",
+    )
+    height: float = Field(
+        gt=0,
+        le=3,
+        description="Height in meters (must be greater than 0 and less than or equal to 3)",
+    )
 
 
 @app.get("/")

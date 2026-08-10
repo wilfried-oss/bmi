@@ -16,6 +16,20 @@ def test_welcome_route():
     assert response.headers["content-type"] == "text/html; charset=utf-8"
 
 
+def test_calculate_bmi_invalid_input():
+    response = client.post("/calculate_bmi", json={"weight": -70, "height": 1.75})
+    assert response.status_code == 422  # Unprocessable Entity due to validation error
+
+    response = client.post("/calculate_bmi", json={"weight": 70, "height": -1.75})
+    assert response.status_code == 422  # Unprocessable Entity due to validation error
+
+    response = client.post("/calculate_bmi", json={"weight": 0, "height": 1.75})
+    assert response.status_code == 422  # Unprocessable Entity due to validation error
+
+    response = client.post("/calculate_bmi", json={"weight": 70, "height": 0})
+    assert response.status_code == 422  # Unprocessable Entity due to validation error
+
+
 def test_calculate_bmi():
     response = client.post("/calculate_bmi", json={"weight": 70, "height": 1.75})
     assert response.status_code == 200
