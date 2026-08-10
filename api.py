@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,8 +9,8 @@ app = FastAPI()
 
 
 class BMICalculatorRequest(BaseModel):
-    height: float
-    weight: float
+    weight: float = Field(gt=0, le=500, description="Weight in kilograms (must be greater than 0 and less than or equal to 500)")
+    height: float = Field(gt=0, le=3, description="Height in meters (must be greater than 0 and less than or equal to 3)")
 
 
 @app.get("/")

@@ -17,7 +17,7 @@ $(function () {
   }
 
   function displayResult(data) {
-    $bmiValue.text(Number(data.bmi));
+    $bmiValue.text(Number(data.bmi).toFixed(2));
     $bmiAdvice.text(data.advice);
     $result.prop("hidden", false);
     $form.hide();
@@ -26,31 +26,37 @@ $(function () {
   $form.on("submit", function (event) {
     event.preventDefault();
     hideError();
-
-    fetch("/calculate_bmi", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        weight: Number($weight.val()),
-        height: Number($height.val()),
-      }),
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) {
-          let message = "Unable to calculate BMI. Please try again.";
-          if (data.detail) {
-            message = Array.isArray(data.detail)
-              ? data.detail.map((item) => item.msg).join(", ")
-              : data.detail;
-          }
-          throw new Error(message);
-        }
-        displayResult(data);
+    method: ("POST",
+      fetch("/calculate_bmi", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          weight: Number($weight.val()),
+          height: Number($height.val()),
+        }),
       })
-      .catch((err) => {
-        showError(err.message);
-      });
+        .then(async (response) => {
+          const data = await response.json();
+
+          if (!response.ok) {
+            const message = Array.isArray(data.detail)
+              ? data.detail
+                  .map((item) => {
+                    const field = item.loc[item.loc.length - 1];
+                    return `${field}: ${item.msg}`;
+                  })
+                  .join(", ")
+              : data.detail || "Unable to calculate BMI. Please try again.";
+            throw new Error(message);
+          }
+
+          displayResult(data);
+        })
+        .catch((error) => {
+          showError(error.message);
+        }));
   });
 
   $reset.on("click", function () {
