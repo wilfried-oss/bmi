@@ -10,6 +10,12 @@ def test_health_check():
     assert response.json() == {"status": "ok"}
 
 
+def test_welcome_route():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "text/html; charset=utf-8"
+
+
 def test_calculate_bmi():
     response = client.post("/calculate_bmi", json={"weight": 70, "height": 1.75})
     assert response.status_code == 200
