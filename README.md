@@ -65,4 +65,5 @@ uv run pytest
 
 ## Roadmap
 
+- Stronger input validation (units, edge cases) : "DONE"
 - Per-user calculation history
