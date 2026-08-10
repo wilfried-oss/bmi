@@ -1,20 +1,20 @@
 # BMI
 
-Petite API pour calculer son IMC (indice de masse corporelle), construite avec FastAPI.
+A small FastAPI service that calculates Body Mass Index.
 
-On envoie son poids et sa taille, elle renvoie le résultat accompagné d'un petit conseil selon la tranche dans laquelle on tombe.
+Send your weight and height, get back your BMI plus a short piece of advice based on which range you fall into.
 
 ## Stack
 
 - Python 3.14
 - FastAPI
 - Uvicorn
-- Pytest pour les tests
-- uv pour la gestion des dépendances et du build
+- Pytest for testing
+- uv for dependency management and builds
 
 ## Installation
 
-Le projet utilise [uv](https://docs.astral.sh/uv/). Une fois installé :
+This project uses [uv](https://docs.astral.sh/uv/). Once it's installed:
 
 ```bash
 git clone https://github.com/wilfried-oss/bmi.git
@@ -22,23 +22,23 @@ cd bmi
 uv sync
 ```
 
-## Lancer le serveur
+## Running the server
 
 ```bash
 uv run uvicorn api:app --reload
 ```
 
-L'application est disponible sur `http://localhost:8000`. La page d'accueil sert directement le fichier statique `static/index.html`.
+The app is available at `http://localhost:8000`. The homepage serves the static file `static/index.html` directly.
 
 ## Endpoints
 
-| Méthode | Route            | Description                                     |
-| ------- | ---------------- | ----------------------------------------------- |
-| GET     | `/`              | Page d'accueil                                  |
-| GET     | `/healthz`       | Vérifie que l'API répond                        |
-| POST    | `/calculate_bmi` | Calcule l'IMC à partir du poids et de la taille |
+| Method | Route            | Description                           |
+| ------ | ---------------- | ------------------------------------- |
+| GET    | `/`              | Homepage                              |
+| GET    | `/healthz`       | Health check                          |
+| POST   | `/calculate_bmi` | Calculates BMI from weight and height |
 
-### Exemple de requête
+### Example request
 
 ```bash
 curl -X POST http://localhost:8000/calculate_bmi \
@@ -46,7 +46,7 @@ curl -X POST http://localhost:8000/calculate_bmi \
   -d '{"weight": 70, "height": 1.75}'
 ```
 
-Réponse :
+Response:
 
 ```json
 {
@@ -55,7 +55,7 @@ Réponse :
 }
 ```
 
-`weight` est en kilogrammes, `height` en mètres. Une valeur négative ou nulle sur l'un des deux renvoie une erreur 400.
+`weight` is in kilograms, `height` in meters. A zero or negative value for either one returns a 400 error.
 
 ## Tests
 
@@ -63,7 +63,7 @@ Réponse :
 uv run pytest
 ```
 
-## À venir
+## Roadmap
 
-- Validation plus poussée des entrées (unités, valeurs limites)
-- Historique des calculs par utilisateur
+- Stronger input validation (units, edge cases)
+- Per-user calculation history
